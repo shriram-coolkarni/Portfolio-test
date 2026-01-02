@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+target/
+*.log
+
+# Docker
+*.tar
+
+# Kubernetes local files
+kubeconfig
+
