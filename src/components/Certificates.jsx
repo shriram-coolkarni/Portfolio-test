@@ -38,7 +38,7 @@ const Certificates = () => {
       </div>
       <div className="text-center mt-8">
         <a
-          href="https://drive.google.com/drive/folders/102uvvHcWGsC3HVqrWfs7NygEMejVObAC?usp=sharing" // Replace with your Google Drive link
+          href="https://driveolders/102uvvHcWGsC3HVqrWfs7NygEMejVObAC?usp=sharing" // Replace with your Google Drive link
           className="bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-700 transition duration-300"
           target="_blank"
           rel="noopener noreferrer"
