@@ -3,23 +3,12 @@ import React from "react";
 // Sample data for certificates
 const CERTIFICATES = [
     {
-      title: "Docker & Kubernetes Masterclass",
-      issuer: "Scaler",
-      date: "2024",
+      title: "AZ-204",
+      issuer: "Azure",
+      date: "Currently ongoing",
       link: "https://drive.google.com/file/d/1VFEpsc6Ww5R2C-KrinF48Fup9DQEdlKw/view?usp=sharing", // Replace with actual link
     },
-  {
-    title: "Full Stack Developer",
-    issuer: "QSpiders, Pune",
-    date: "2023",
-    link: "https://drive.google.com/file/d/1EY2K6QraJYrTygCPd-lAhCSWgTRxjOs-/view?usp=sharing", // Replace with actual link
-  },
-  {
-    title: "TCS iON Career Edge - Young Professional",
-    issuer: "TCS iON",
-    date: "2023",
-    link: "https://drive.google.com/file/d/1mKSBfmjahHP1L5pv2vP7gwDtA9ACGnl3/view?usp=sharing", // Replace with actual link
-  },
+  
   // Add more certificates as needed
 ];
 

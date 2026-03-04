@@ -56,7 +56,7 @@ const Hero = () => {
             <motion.span 
               variants={childVariants}
               className="bg-gradient-to-r from-stone-300 to-stone-600 bg-clip-text text-2xl md:text-3xl lg:text-4xl tracking-tight text-transparent text-center lg:text-left">
-              System Engineer/Devops and Automation Senior
+              System Engineer/Devops and Automation 
             </motion.span>
 
             <motion.p 
@@ -66,7 +66,7 @@ const Hero = () => {
             </motion.p>
             <motion.a
               variants={childVariants}
-              href="/Pratik_Ludarkar_Resume.pdf"
+              href="/Shriram_Kulkarni_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               download

@@ -13,7 +13,7 @@ const Navbar = () => {
 
       <div className="m-8 flex items-center justify-center gap-4 text-3xl">
         <a
-          href="https://www.linkedin.com/in/pratik-ludarkar-swd/"
+          href="https://www.linkedin.com/in/shriram-kulkarni-702019191/"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn"
@@ -21,7 +21,7 @@ const Navbar = () => {
           <FaLinkedin />
         </a>
         <a
-          href="https://www.github.com/PratikLudarkar99"
+          href="https://github.com/shriram-coolkarni"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub"
@@ -29,7 +29,7 @@ const Navbar = () => {
           <FaGithub />
         </a>
         <a
-          href="https://www.instagram.com/pratik_ludarkar_99"
+          href="https://www.instagram.com/shree_ram_345"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn"
