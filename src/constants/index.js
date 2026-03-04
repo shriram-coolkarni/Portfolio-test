@@ -1,4 +1,5 @@
 import office from "../assets/projects/office.png";
+import portfolio from "../assets/projects/portfolio.png";
 import FullStack from "../assets/projects/FullStack.png";
 import ATM from "../assets/projects/ATM.png";
 import NumberGuessing from "../assets/projects/NumberGuessing.jpg";
