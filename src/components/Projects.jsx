@@ -44,7 +44,7 @@ const Projects = () => {
         ))}
       {/* Add the "More" button here, aligned to the right */}
       <div className='mt-8 flex justify-end'>
-        <a href="https://github.com/PratikLudarkar99" target="_blank" rel="noopener noreferrer">
+        <a href="https://github.com/shriram-coolkarni" target="_blank" rel="noopener noreferrer">
           <button className='bg-black text-white font-bold py-2 px-4 rounded hover:bg-gray-800 transition duration-300 ease-in-out'>
             More Projects
           </button>

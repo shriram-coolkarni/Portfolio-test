@@ -27,6 +27,13 @@ export const PROJECTS = [
       "Designed and deployed a containerized food-ordering application using Docker, KIND, and Kubernetes with separate frontend and backend services. Built custom Docker images, managed image versioning, and deployed workloads using Kubernetes Deployments, Services, and Namespaces. Gained hands-on experience in local Kubernetes clusters, service exposure via NodePort, inter-pod communication, and production-style debugging using kubectl logs and exec.",
     technologies: ["Docker, Kubernetes (KIND), kubectl, NGINX, Node.js, Linux, Networking (NodePort, Services"]
   },
+  {
+   title: "Portfolio-DevOps CI/CD Pipeline with Jenkins",
+    image: ,
+    description:
+      "Implemented an automated CI/CD pipeline using Jenkins that builds and deploys the application on every commit pushed to GitHub. The project runs on an AWS EC2 Free Tier instance, where system optimizations such as swap memory configuration and resource tuning were applied to ensure smooth operation within limited resources. Added Docker image cleanup logic to remove older images after each build, helping manage disk space and maintain efficient resource usage on the server.",
+    technologies: ["Jenkins, Docker, GitHub, CI/CD, AWS EC2 (Free Tier), Linux, Swap Memory, Automation, Cost"] 
+  },
 ];
 
 export const CONTACT = {
