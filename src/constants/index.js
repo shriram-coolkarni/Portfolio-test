@@ -15,7 +15,7 @@ export const EXPERIENCES = [
     company: "Zensar Technologies, India",
     description: `NOC Engineer at Zensar — Responsible for 24×7 monitoring of production systems, identifying and resolving incidents using monitoring tools to ensure high availability and SLA adherence.
 Collaborated with L2/L3 teams, performed root cause analysis, and maintained detailed incident documentation while supporting enterprise clients in a fast-paced operations environment..`,
-    technologies: ["Java","Springboot", "React.js", "Vite.js","Tailwind", "MySQL"],
+    technologies: ["Solarwinds","Cisco Prime","ServiceNow","Networking"],
   },
   
 ];
