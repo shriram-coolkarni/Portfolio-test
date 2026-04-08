@@ -5,7 +5,7 @@ const CERTIFICATES = [
     {
       title: "AZ-204",
       issuer: "Azure",
-      date: "Currently ongoing",
+      date: "Done",
       link: "https://drive.google.com/fil/1VFEpsc6Ww5R2C-KrinF48Fup9DQEdlKw/view?usp=sharing", // Replace with actual link
     },
   
