@@ -4,7 +4,7 @@ import { useScramble } from '../hooks/useScramble'
 
 export default function SectionHeading({ index, title }: { index: string; title: string }) {
   const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-100px' })
+  const inView = useInView(ref, { once: true, margin: '0px' })
   const scrambled = useScramble(title.toUpperCase(), inView)
 
   return (

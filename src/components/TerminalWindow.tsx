@@ -38,16 +38,16 @@ export default function TerminalWindow({
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
       style={{ rotateX: springX, rotateY: springY, transformPerspective: 1000 }}
-      className={`relative overflow-hidden rounded-lg border border-term-border bg-term-bg-alt shadow-[0_0_40px_-15px_rgba(74,222,128,0.15)] backdrop-blur-sm will-change-transform ${className}`}
+      className={`relative flex flex-col overflow-hidden rounded-lg border border-term-border bg-term-bg-alt shadow-[0_0_40px_-15px_rgba(74,222,128,0.15)] backdrop-blur-sm will-change-transform ${className}`}
     >
       <motion.div className="pointer-events-none absolute inset-0" style={{ backgroundImage: glow }} />
-      <div className="relative flex items-center gap-2 border-b border-term-border bg-black/30 px-4 py-2.5">
+      <div className="relative flex shrink-0 items-center gap-2 border-b border-term-border bg-black/30 px-4 py-2.5">
         <span className="h-3 w-3 rounded-full bg-term-red/70" />
         <span className="h-3 w-3 rounded-full bg-term-amber/70" />
         <span className="h-3 w-3 rounded-full bg-term-green/70" />
         <span className="ml-3 truncate text-xs text-term-dim">{title}</span>
       </div>
-      <div className="relative p-5 sm:p-6">{children}</div>
+      <div className="relative min-h-0 flex-1 overflow-y-auto p-5 sm:p-6">{children}</div>
     </motion.div>
   )
 }

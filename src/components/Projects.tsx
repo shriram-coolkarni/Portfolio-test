@@ -37,17 +37,17 @@ export default function Projects() {
   }, [])
 
   return (
-    <section id="projects" ref={sectionRef} className="relative scroll-mt-20">
-      <div className="absolute top-10 left-0 right-0 z-10 mx-auto max-w-6xl px-6">
+    <section id="projects" ref={sectionRef} className="relative flex h-screen scroll-mt-20 flex-col overflow-hidden">
+      <div className="mx-auto w-full max-w-6xl shrink-0 px-6 pt-20 sm:pt-24">
         <SectionHeading index="03" title="projects" />
         <p className="-mt-4 font-mono text-xs text-term-dim">scroll to move through ~/projects →</p>
       </div>
 
-      <div className="flex h-screen items-center overflow-hidden">
+      <div className="flex min-h-0 flex-1 items-center overflow-hidden">
         <div ref={trackRef} className="flex items-center gap-6 pl-6 pr-[20vw] sm:gap-8 sm:pl-[8vw]">
           {projects.map((project) => (
             <div key={project.id} className="w-[85vw] shrink-0 sm:w-[440px] lg:w-[480px]">
-              <TerminalWindow title={`~/projects/${project.id}`}>
+              <TerminalWindow title={`~/projects/${project.id}`} className="max-h-[70vh] sm:max-h-[75vh]">
                 <div className="flex items-center justify-between gap-2 font-mono text-sm sm:text-base">
                   <span className="text-term-dim">drwxr-xr-x</span>
                   <StatusBadge status={project.status} />

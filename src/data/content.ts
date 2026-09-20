@@ -33,6 +33,7 @@ export const skills = {
     'SLA Adherence',
     'High-Availability Monitoring',
   ],
+  'ai-assisted-dev': ['Claude Code'],
 }
 
 // Explicitly separate from `skills` — foundational exposure only, not yet

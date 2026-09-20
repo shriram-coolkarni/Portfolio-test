@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { FaAws } from 'react-icons/fa6'
 import {
   SiAnsible,
+  SiClaudecode,
   SiCloudflare,
   SiDocker,
   SiGit,
@@ -33,6 +34,7 @@ const ICONS: IconDef[] = [
   { icon: SiGnubash, label: 'Bash', color: '#4eaa25' },
   { icon: SiCloudflare, label: 'Cloudflare', color: '#f38020' },
   { icon: SiNetlify, label: 'Netlify', color: '#00c7b7' },
+  { icon: SiClaudecode, label: 'Claude Code', color: '#d97757' },
   { icon: SiKubernetes, label: 'Kubernetes', color: '#326ce5', learning: true },
   { icon: SiTerraform, label: 'Terraform', color: '#844fba', learning: true },
   { icon: SiAnsible, label: 'Ansible', color: '#ee0000', learning: true },
