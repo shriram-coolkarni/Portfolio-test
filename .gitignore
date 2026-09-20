@@ -1,6 +1,8 @@
 node_modules/
 dist/
+dist-ssr/
 .env
+*.local
 target/
 *.log
 
@@ -9,4 +11,10 @@ target/
 
 # Kubernetes local files
 kubeconfig
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
 
