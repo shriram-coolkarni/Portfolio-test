@@ -21,8 +21,19 @@ export default function Experience() {
                 )}
                 <p className="text-term-dim">{entry.period}</p>
                 <p className="mt-1 font-semibold text-term-green">{entry.role}</p>
-                <p className="text-term-cyan">{entry.org}</p>
-                <ul className="mt-2 list-inside list-disc space-y-1 text-term-text">
+                {entry.orgUrl ? (
+                  <a
+                    href={entry.orgUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-block text-term-cyan underline underline-offset-4 hover:text-term-green"
+                  >
+                    {entry.org}
+                  </a>
+                ) : (
+                  <p className="text-term-cyan">{entry.org}</p>
+                )}
+                <ul className="mt-2 list-outside list-disc space-y-1.5 pl-5 text-term-text">
                   {entry.bullets.map((b) => (
                     <li key={b} className="marker:text-term-amber">
                       {b}

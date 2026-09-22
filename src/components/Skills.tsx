@@ -57,7 +57,7 @@ export default function Skills() {
               # foundational exposure — actively building toward hands-on, production-level proficiency.
             </p>
             <p className="text-term-dim"># not yet applied in a project or work context.</p>
-            <ul className="mt-2 grid list-inside list-disc grid-cols-1 gap-x-6 gap-y-1 text-term-text sm:grid-cols-2">
+            <ul className="mt-2 grid list-outside list-disc grid-cols-1 gap-x-6 gap-y-1 pl-5 text-term-text sm:grid-cols-2">
               {currentlyLearning.map((item) => (
                 <li key={item} className="marker:text-term-cyan">
                   {item}

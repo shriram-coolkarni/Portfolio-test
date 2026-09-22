@@ -58,7 +58,7 @@ export default function Projects() {
                 <p className="mt-4 font-mono text-sm leading-relaxed text-term-text">{project.description}</p>
 
                 {project.achievements && (
-                  <ul className="mt-3 list-inside list-disc space-y-1 font-mono text-sm text-term-text">
+                  <ul className="mt-3 list-outside list-disc space-y-1 pl-5 font-mono text-sm text-term-text">
                     {project.achievements.map((a) => (
                       <li key={a} className="marker:text-term-green">
                         {a}

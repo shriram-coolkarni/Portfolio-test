@@ -53,8 +53,8 @@ function Row({
       download={download}
       className="flex items-center gap-3 text-term-cyan transition hover:text-term-green hover:text-glow"
     >
-      <span className="text-term-green">{icon}</span>
-      {label}
+      <span className="shrink-0 text-term-green">{icon}</span>
+      <span className="break-all">{label}</span>
     </a>
   )
 }
