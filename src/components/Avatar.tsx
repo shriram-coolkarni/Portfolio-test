@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import photo from '../assets/photo.jpg'
+import photo from '../assets/photo.png'
 
 export default function Avatar() {
   return (
