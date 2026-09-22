@@ -85,7 +85,7 @@ function IconTile({ icon: Icon, label, color, learning, index }: IconDef & { ind
         )}
       </motion.div>
 
-      <span className="pointer-events-none absolute -bottom-6 whitespace-nowrap font-mono text-[10px] text-term-dim opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+      <span className="mt-1.5 block whitespace-nowrap font-mono text-[10px] text-term-dim sm:pointer-events-none sm:absolute sm:-bottom-6 sm:mt-0 sm:opacity-0 sm:transition-opacity sm:duration-200 sm:group-hover:opacity-100">
         {label}
         {learning && <span className="text-term-amber"> · learning</span>}
       </span>
