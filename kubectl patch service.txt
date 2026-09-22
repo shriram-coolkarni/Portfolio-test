@@ -1,3 +1,0 @@
-kubectl patch service portfolio-service \
--p '{"spec":{"selector":{"app":"portfolio","version":"blue"}}}'
-

@@ -1,67 +1,50 @@
 pipeline {
-  agent any
+    agent any
 
-  environment {
-    IMAGE = "YOUR_DOCKERHUB_USERNAME/portfolio"
-  }
-
-  triggers {
-    githubPush()
-  }
-
-  stages {
-
-    stage('Checkout Code') {
-      steps {
-        git branch: 'main',
-            url: 'https://github.com/YOUR_GITHUB_USERNAME/portfolio.git'
-      }
+    environment {
+        IMAGE_NAME = "portfolio-app"
+        CONTAINER_NAME = "portfolio-container"
+        REPO_URL = "https://github.com/shriram-coolkarni/Portfolio-test.git"
+        BRANCH = "main"
     }
 
-    stage('Build Docker Image (GREEN)') {
-      steps {
-        sh "docker build -t $IMAGE:green ."
-      }
-    }
+    stages {
 
-    stage('Push Image to DockerHub') {
-      steps {
-        withCredentials([usernamePassword(
-          credentialsId: 'dockerhub-creds',
-          usernameVariable: 'DOCKER_USER',
-          passwordVariable: 'DOCKER_PASS'
-        )]) {
-          sh '''
-          echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-          docker push $IMAGE:green
-          '''
+        stage('Clone') {
+            steps {
+                git branch: "${BRANCH}", url: "${REPO_URL}"
+            }
         }
-      }
-    }
 
-    stage('Deploy GREEN Environment') {
-      steps {
-        sh '''
-        kubectl apply -f k8s/green-deployment.yaml
-        kubectl rollout status deployment/portfolio-green
-        '''
-      }
-    }
+        stage('Build Image') {
+            steps {
+                sh """
+                docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .
+                """
+            }
+        }
 
-    stage('Switch Traffic to GREEN') {
-      steps {
-        sh '''
-        kubectl patch service portfolio-service \
-        -p '{"spec":{"selector":{"app":"portfolio","version":"green"}}}'
-        '''
-      }
-    }
+        stage('Deploy') {
+            steps {
+                sh """
+                docker rm -f ${CONTAINER_NAME} || true
+                docker run -d -p 80:80 -p 443:443 \
+                  -v /etc/letsencrypt:/etc/letsencrypt:ro \
+                  --restart unless-stopped \
+                  --name ${CONTAINER_NAME} ${IMAGE_NAME}:${BUILD_NUMBER}
+                """
+            }
+        }
 
-    stage('BLUE retained for rollback') {
-      steps {
-        echo "Deployment successful. Blue environment kept for rollback."
-      }
+        stage('Cleanup Old Images') {
+            steps {
+                sh """
+                docker images ${IMAGE_NAME} --format "{{.Tag}}" | \
+                sort -nr | \
+                tail -n +3 | \
+                xargs -r -I {} docker rmi ${IMAGE_NAME}:{}
+                """
+            }
+        }
     }
-  }
 }
-
