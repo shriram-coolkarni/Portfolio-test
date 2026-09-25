@@ -32,6 +32,8 @@ export const skills = {
     'Root Cause Analysis (RCA)',
     'SLA Adherence',
     'High-Availability Monitoring',
+    'ServiceNow',
+    'SolarWinds',
   ],
   'ai-assisted-dev': ['Claude Code'],
 }
