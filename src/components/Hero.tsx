@@ -1,88 +1,150 @@
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { useRef } from 'react'
-import { FiDownload } from 'react-icons/fi'
+import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { FiArrowDown, FiArrowUpRight, FiDownload } from 'react-icons/fi'
 import { profile } from '../data/content'
-import { useTypewriter } from '../hooks/useTypewriter'
 import Avatar from './Avatar'
-import TerminalWindow from './TerminalWindow'
+import Magnetic from './Magnetic'
+import SplitText from './SplitText'
 
-const COMMANDS = [`whoami`, `cat role.txt`, `cat summary.txt`]
+const ROTATING = ['always up.', 'observable.', 'automated.', 'shipping.']
 
 export default function Hero() {
-  const { output, done } = useTypewriter(COMMANDS, { speed: 35, startDelay: 300 })
   const sectionRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] })
 
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.85])
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
-  const y = useTransform(scrollYProgress, [0, 1], [0, 80])
+  const y = useTransform(scrollYProgress, [0, 1], [0, 160])
+  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
+  const blur = useTransform(scrollYProgress, [0, 0.7], ['blur(0px)', 'blur(10px)'])
 
   return (
-    <section ref={sectionRef} className="relative flex min-h-screen items-center justify-center px-6">
+    <section ref={sectionRef} className="relative flex min-h-[100svh] items-center pb-20 pt-28">
       <motion.div
-        style={{ scale, opacity, y }}
-        className="mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[auto_1fr] lg:gap-16"
+        style={{ y, opacity, filter: blur }}
+        className="mx-auto grid w-full max-w-7xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-[1.35fr_0.65fr] lg:gap-10"
       >
-        <div className="order-1 flex justify-center lg:order-none">
-          <Avatar />
+        <div>
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-line bg-surface/60 py-1.5 pl-2 pr-4 text-xs text-muted backdrop-blur-md sm:text-sm"
+          >
+            <span className="flex items-center gap-1.5 rounded-full bg-accent/15 px-2 py-0.5 font-mono text-[11px] text-accent">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
+              OPEN
+            </span>
+            to DevOps · SRE · Network roles
+          </motion.div>
+
+          <h1 className="text-[clamp(3.4rem,15vw,9.5rem)] font-semibold leading-[0.88] tracking-[-0.055em] text-fg">
+            <SplitText text="Shriram" delay={0.1} />
+            <br />
+            <SplitText
+              text="Kulkarni"
+              delay={0.2}
+              className="font-serif font-normal italic tracking-[-0.03em]"
+              wordClassName="text-gradient pr-[0.06em]"
+            />
+          </h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-8 flex flex-wrap items-baseline gap-x-2.5 text-xl text-muted sm:text-3xl"
+          >
+            <span>I keep infrastructure</span>
+            <RotatingWord />
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg"
+          >
+            {profile.title}. 3+ years on Zensar’s NOC for the Airbus account — now shipping CI/CD, Docker and AWS
+            on the side.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-10 flex flex-wrap items-center gap-3"
+          >
+            <Magnetic>
+              <a
+                href="/Shriram_Kulkarni_Resume.pdf"
+                download
+                className="group relative flex items-center gap-2 overflow-hidden rounded-full bg-fg px-6 py-3.5 text-sm font-medium text-bg"
+              >
+                <span className="absolute inset-0 translate-y-full rounded-full bg-accent transition-transform duration-500 ease-out-expo group-hover:translate-y-0" />
+                <FiDownload className="relative" />
+                <span className="relative">Download résumé</span>
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a
+                href="#projects"
+                onClick={(e) => {
+                  e.preventDefault()
+                  document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
+                }}
+                className="group flex items-center gap-2 rounded-full border border-line-strong px-6 py-3.5 text-sm text-fg backdrop-blur-md transition hover:border-accent/60 hover:bg-accent/5"
+              >
+                See my work
+                <FiArrowUpRight className="transition group-hover:rotate-45" />
+              </a>
+            </Magnetic>
+          </motion.div>
         </div>
 
-        <div className="order-2 lg:order-none">
-          <TerminalWindow title="shriram@portfolio:~">
-            <div className="space-y-3 font-mono text-sm sm:text-base lg:text-lg">
-              <Line prompt cmd={output[0]} />
-              {output[0] === COMMANDS[0] && (
-                <p className="pl-4 text-3xl font-semibold text-term-green text-glow sm:text-5xl lg:text-6xl">
-                  {profile.name}
-                </p>
-              )}
-
-              <Line prompt cmd={output[1]} />
-              {output[1] === COMMANDS[1] && <p className="pl-4 text-term-amber">{profile.title}</p>}
-
-              <Line prompt cmd={output[2]} />
-              {output[2] === COMMANDS[2] && (
-                <p className="pl-4 leading-relaxed text-term-text">
-                  {profile.summary}
-                  {done && <span className="cursor-blink" />}
-                </p>
-              )}
-            </div>
-          </TerminalWindow>
-
-          <div className="mt-6 flex flex-wrap items-center gap-4 pl-1">
-            <a
-              href="/Shriram_Kulkarni_Resume.pdf"
-              download
-              className="group flex items-center gap-2 rounded border border-term-green/40 bg-term-green/5 px-4 py-2 font-mono text-xs text-term-green transition hover:bg-term-green/15 hover:shadow-[0_0_20px_-4px_rgba(74,222,128,0.5)] sm:text-sm"
-            >
-              <FiDownload className="transition group-hover:translate-y-0.5" />
-              ./download-resume.sh
-            </a>
-            <p className="text-xs text-term-dim sm:text-sm">
-              {profile.location} · scroll or run <code className="text-term-cyan">ls</code> above to explore
-            </p>
-          </div>
+        <div className="flex justify-center lg:justify-end">
+          <Avatar />
         </div>
       </motion.div>
 
       <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 font-mono text-xs text-term-dim"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.4 }}
+        className="absolute inset-x-0 bottom-6 mx-auto flex max-w-7xl items-center justify-between px-5 font-mono text-[11px] uppercase tracking-[0.2em] text-faint sm:px-8"
       >
-        ▼ scroll
+        <span>{profile.location}</span>
+        <span className="flex items-center gap-2">
+          Scroll
+          <motion.span animate={{ y: [0, 4, 0] }} transition={{ duration: 1.6, repeat: Infinity }}>
+            <FiArrowDown />
+          </motion.span>
+        </span>
       </motion.div>
     </section>
   )
 }
 
-function Line({ prompt, cmd }: { prompt: boolean; cmd?: string }) {
-  if (!cmd) return null
+function RotatingWord() {
+  const [i, setI] = useState(0)
+
+  useEffect(() => {
+    const id = setInterval(() => setI((n) => (n + 1) % ROTATING.length), 2200)
+    return () => clearInterval(id)
+  }, [])
+
   return (
-    <div className="flex gap-2">
-      {prompt && <span className="text-term-green">shriram@portfolio:~$</span>}
-      <span className="text-term-text">{cmd}</span>
-    </div>
+    <span className="relative inline-flex overflow-hidden pb-1">
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.span
+          key={ROTATING[i]}
+          initial={{ y: '100%', opacity: 0, filter: 'blur(6px)' }}
+          animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+          exit={{ y: '-100%', opacity: 0, filter: 'blur(6px)' }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="font-serif italic text-fg"
+        >
+          {ROTATING[i]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
   )
 }

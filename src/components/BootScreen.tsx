@@ -1,42 +1,72 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { useState } from 'react'
-import { useTypewriter } from '../hooks/useTypewriter'
+import { useEffect, useState } from 'react'
 
-const BOOT_LINES = [
-  'shriram-portfolio login: shriram',
-  'Loading kernel modules... [ OK ]',
-  'Mounting /dev/experience... [ OK ]',
-  'Starting network-monitor.service... [ OK ]',
-  'Starting incident-response.service... [ OK ]',
-  'Starting devops-upskilling.service... [ OK ]',
-  'Welcome. Type is optional — scrolling works too.',
-]
+const STAGES = ['mounting /dev/experience', 'starting network-monitor', 'starting incident-response', 'ready']
 
 export default function BootScreen({ onComplete }: { onComplete: () => void }) {
+  const [count, setCount] = useState(0)
   const [hidden, setHidden] = useState(false)
-  const { output, done } = useTypewriter(BOOT_LINES, {
-    speed: 14,
-    onDone: () => {
-      setTimeout(() => setHidden(true), 500)
-      setTimeout(onComplete, 1000)
-    },
-  })
+
+  useEffect(() => {
+    let raf: number
+    const start = performance.now()
+    const duration = 1600
+    function tick(now: number) {
+      const t = Math.min((now - start) / duration, 1)
+      // ease-out so the counter slows near 100
+      setCount(Math.round((1 - Math.pow(1 - t, 3)) * 100))
+      if (t < 1) raf = requestAnimationFrame(tick)
+      else {
+        setTimeout(() => setHidden(true), 250)
+        setTimeout(onComplete, 650)
+      }
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const stage = STAGES[Math.min(Math.floor((count / 100) * STAGES.length), STAGES.length - 1)]
 
   return (
     <AnimatePresence>
       {!hidden && (
         <motion.div
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-term-bg px-6"
+          exit={{ clipPath: 'inset(0 0 100% 0)' }}
+          initial={{ clipPath: 'inset(0 0 0% 0)' }}
+          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+          className="fixed inset-0 z-[100] flex flex-col justify-between bg-bg p-6 sm:p-10"
         >
-          <div className="w-full max-w-xl font-mono text-sm text-term-green">
-            {BOOT_LINES.map((_, i) => (
-              <div key={i} className="min-h-[1.4em]">
-                {output[i]}
-                {done && i === BOOT_LINES.length - 1 && <span className="cursor-blink" />}
-              </div>
-            ))}
+          <div className="flex items-center justify-between font-mono text-xs text-muted">
+            <span>shriram@portfolio</span>
+            <span className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
+              {stage}
+            </span>
+          </div>
+
+          <div className="overflow-hidden">
+            <motion.p
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              className="text-4xl font-semibold tracking-[-0.04em] text-fg sm:text-6xl"
+            >
+              Shriram <span className="font-serif font-normal italic text-accent">Kulkarni</span>
+            </motion.p>
+          </div>
+
+          <div>
+            <div className="mb-3 h-px w-full overflow-hidden bg-line">
+              <div className="h-full bg-gradient-to-r from-accent to-accent-2" style={{ width: `${count}%` }} />
+            </div>
+            <div className="flex items-end justify-between">
+              <span className="font-mono text-xs text-muted">DevOps / SRE · Pune, IN</span>
+              <span className="text-6xl font-semibold tabular-nums tracking-[-0.05em] text-fg sm:text-8xl">
+                {count}
+                <span className="text-accent">%</span>
+              </span>
+            </div>
           </div>
         </motion.div>
       )}

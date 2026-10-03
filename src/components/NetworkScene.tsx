@@ -61,14 +61,14 @@ function Graph() {
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[linePositions, 3]} />
         </bufferGeometry>
-        <lineBasicMaterial color="#22c55e" transparent opacity={0.18} />
+        <lineBasicMaterial color="#5eead4" transparent opacity={0.1} />
       </lineSegments>
 
       <points>
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[pointPositions, 3]} />
         </bufferGeometry>
-        <pointsMaterial color="#4ade80" size={0.09} sizeAttenuation transparent opacity={0.85} />
+        <pointsMaterial color="#86efac" size={0.06} sizeAttenuation transparent opacity={0.6} />
       </points>
     </group>
   )
@@ -76,11 +76,10 @@ function Graph() {
 
 export default function NetworkScene() {
   return (
-    <div className="fixed inset-0 -z-10">
-      <Canvas camera={{ position: [0, 0, 9], fov: 50 }} dpr={[1, 1.5]}>
+    <div className="absolute inset-0 opacity-70">
+      <Canvas camera={{ position: [0, 0, 9], fov: 50 }} dpr={[1, 1.5]} eventSource={document.body}>
         <Graph />
       </Canvas>
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-term-bg/40 via-term-bg/70 to-term-bg" />
     </div>
   )
 }

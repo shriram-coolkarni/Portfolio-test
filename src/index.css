@@ -1,18 +1,52 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-mono: 'JetBrains Mono', ui-monospace, 'Fira Code', Consolas, monospace;
+  --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'JetBrains Mono', Consolas, monospace;
+  --font-serif: 'Instrument Serif', ui-serif, Georgia, serif;
 
-  --color-term-bg: #0a0e0c;
-  --color-term-bg-alt: #10161388;
-  --color-term-border: #1f2b24;
-  --color-term-text: #c9d1cf;
-  --color-term-dim: #5f6b66;
-  --color-term-green: #4ade80;
-  --color-term-green-dim: #22c55e88;
-  --color-term-amber: #f5a623;
-  --color-term-red: #ef4444;
-  --color-term-cyan: #22d3ee;
+  --color-bg: #060807;
+  --color-surface: #0d110f;
+  --color-surface-2: #131815;
+  --color-line: #ffffff14;
+  --color-line-strong: #ffffff26;
+  --color-fg: #ededed;
+  --color-muted: #8b938f;
+  --color-faint: #4b5450;
+  --color-accent: #4ade80;
+  --color-accent-2: #2dd4bf;
+  --color-accent-3: #a3e635;
+  --color-warn: #fbbf24;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+  --animate-aurora: aurora 18s ease-in-out infinite alternate;
+  --animate-shine: shine 6s linear infinite;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes aurora {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(6%, -4%, 0) scale(1.15) rotate(8deg);
+  }
+  100% {
+    transform: translate3d(-4%, 6%, 0) scale(0.95) rotate(-6deg);
+  }
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
 }
 
 :root {
@@ -21,46 +55,71 @@
 
 html {
   scroll-behavior: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   margin: 0;
   overflow-x: hidden;
-  background: var(--color-term-bg);
-  color: var(--color-term-text);
-  font-family: var(--font-mono);
-  background-image:
-    radial-gradient(ellipse at top, rgba(74, 222, 128, 0.05), transparent 60%),
-    repeating-linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.015) 0px,
-      rgba(255, 255, 255, 0.015) 1px,
-      transparent 1px,
-      transparent 2px
-    );
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  font-feature-settings: 'ss01', 'cv11';
 }
 
 ::selection {
-  background: var(--color-term-green);
-  color: #04140a;
+  background: var(--color-accent);
+  color: #03140a;
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-term-bg);
+  background: var(--color-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-term-border);
-  border-radius: 4px;
+  background: #ffffff1f;
+  border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-term-green-dim);
+  background: #4ade8066;
 }
 
-.text-glow {
-  text-shadow: 0 0 8px currentColor;
+/* Animated gradient text — used for the accent words in big headings. */
+.text-gradient {
+  background: linear-gradient(
+    100deg,
+    var(--color-accent) 0%,
+    var(--color-accent-2) 30%,
+    var(--color-accent-3) 60%,
+    var(--color-accent) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: var(--animate-shine);
+}
+
+/* Film grain overlay — an inline SVG noise texture, no extra request. */
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+}
+
+/* Fine dotted grid that fades out toward the edges. */
+.bg-grid {
+  background-image: radial-gradient(#ffffff1a 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 75%);
+}
+
+/* Fade the ends of horizontal marquees. */
+.mask-x {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .cursor-blink::after {
@@ -75,23 +134,12 @@ body {
   }
 }
 
-.crt-flicker {
-  animation: flicker 6s infinite;
-}
-
-@keyframes flicker {
-  0%,
-  95%,
-  100% {
-    opacity: 1;
-  }
-  96% {
-    opacity: 0.92;
-  }
-  97% {
-    opacity: 1;
-  }
-  98% {
-    opacity: 0.96;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

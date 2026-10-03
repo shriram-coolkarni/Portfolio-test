@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { FaAws } from 'react-icons/fa6'
 import {
   SiAnsible,
@@ -66,7 +65,7 @@ const ICONS: IconDef[] = [
   { icon: SiDocker, label: 'Docker', color: '#2496ed' },
   { icon: SiJenkins, label: 'Jenkins', color: '#d24939' },
   { icon: SiGit, label: 'Git', color: '#f05032' },
-  { icon: SiGithub, label: 'GitHub', color: '#c9d1cf' },
+  { icon: SiGithub, label: 'GitHub', color: '#ededed' },
   { icon: SiGnubash, label: 'Bash', color: '#4eaa25' },
   { icon: SiCloudflare, label: 'Cloudflare', color: '#f38020' },
   { icon: SiNetlify, label: 'Netlify', color: '#00c7b7' },
@@ -85,48 +84,47 @@ const ICONS: IconDef[] = [
 ]
 
 export default function SkillIcons() {
+  const half = Math.ceil(ICONS.length / 2)
   return (
-    <div className="flex flex-wrap justify-center gap-5 sm:gap-7">
-      {ICONS.map((item, i) => (
-        <IconTile key={item.label} {...item} index={i} />
-      ))}
+    <div className="mask-x space-y-4 overflow-hidden">
+      <MarqueeRow items={ICONS.slice(0, half)} />
+      <MarqueeRow items={ICONS.slice(half)} reverse />
     </div>
   )
 }
 
-function IconTile({ icon: Icon, label, color, learning, index }: IconDef & { index: number }) {
+function MarqueeRow({ items, reverse }: { items: IconDef[]; reverse?: boolean }) {
+  // Content is duplicated so translating by -50% loops seamlessly.
+  const loop = [...items, ...items]
   return (
-    <motion.div
-      className="group relative flex flex-col items-center"
-      animate={{ y: [0, -8, 0] }}
-      transition={{
-        duration: 3 + (index % 4) * 0.4,
-        repeat: Infinity,
-        ease: 'easeInOut',
-        delay: (index % 6) * 0.25,
-      }}
-    >
-      <motion.div
-        whileHover={{ scale: 1.25, y: -4 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 15 }}
-        className="relative flex h-14 w-14 items-center justify-center rounded-xl border border-term-border bg-term-bg-alt sm:h-16 sm:w-16"
-        style={{ boxShadow: `0 0 0 rgba(0,0,0,0)` }}
+    <div className="group flex w-max">
+      <div
+        className="flex animate-marquee gap-4 pr-4 group-hover:[animation-play-state:paused]"
+        style={{ animationDirection: reverse ? 'reverse' : 'normal', ['--marquee-duration' as string]: '45s' }}
       >
-        <motion.div
-          className="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100"
-          style={{ boxShadow: `0 0 24px 2px ${color}55` }}
-          transition={{ duration: 0.2 }}
-        />
-        <Icon size={26} color={color} className="relative sm:size-8" />
-        {learning && (
-          <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-term-amber ring-2 ring-term-bg" />
-        )}
-      </motion.div>
+        {loop.map((item, i) => (
+          <IconChip key={`${item.label}-${i}`} {...item} />
+        ))}
+      </div>
+    </div>
+  )
+}
 
-      <span className="mt-1.5 block whitespace-nowrap font-mono text-[10px] text-term-dim sm:pointer-events-none sm:absolute sm:-bottom-6 sm:mt-0 sm:opacity-0 sm:transition-opacity sm:duration-200 sm:group-hover:opacity-100">
-        {label}
-        {learning && <span className="text-term-amber"> · learning</span>}
+function IconChip({ icon: Icon, label, color, learning }: IconDef) {
+  return (
+    <div
+      className="flex shrink-0 items-center gap-3 rounded-2xl border border-line bg-surface/70 py-3 pl-3 pr-5 backdrop-blur-md transition-colors duration-300 hover:border-line-strong"
+      style={{ ['--c' as string]: color }}
+    >
+      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/[0.04] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)]">
+        <Icon size={22} color={color} />
       </span>
-    </motion.div>
+      <span className="text-sm font-medium text-fg">{label}</span>
+      {learning && (
+        <span className="rounded-full border border-warn/30 bg-warn/10 px-2 py-0.5 font-mono text-[10px] text-warn">
+          learning
+        </span>
+      )}
+    </div>
   )
 }
