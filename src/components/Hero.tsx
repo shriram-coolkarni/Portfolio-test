@@ -1,10 +1,12 @@
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { FiArrowDown, FiArrowUpRight, FiDownload } from 'react-icons/fi'
-import { profile } from '../data/content'
+import { profile, yearsOfExperience } from '../data/content'
 import Avatar from './Avatar'
 import Magnetic from './Magnetic'
 import SplitText from './SplitText'
+
+const YEARS = yearsOfExperience()
 
 const ROTATING = ['always up.', 'observable.', 'automated.', 'shipping.']
 
@@ -63,8 +65,8 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
             className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg"
           >
-            {profile.title}. 3+ years on Zensar’s NOC for the Airbus account — now shipping CI/CD, Docker and AWS
-            on the side.
+            {profile.title}. {YEARS}+ years at Zensar since June 2022, now on the NOC for the Airbus account — and
+            shipping CI/CD, Docker and AWS on the side.
           </motion.p>
 
           <motion.div

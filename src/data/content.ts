@@ -11,6 +11,15 @@ export const profile = {
     "DevOps-focused System Engineer with hands-on production experience in network troubleshooting, infrastructure monitoring, incident response, and root cause analysis, gained on Zensar's NOC team supporting the Airbus account. Complements this with self-driven projects in CI/CD automation, Docker containerization, and AWS cloud deployment.",
 }
 
+// Joined Zensar in June 2022 — experience is derived from this so it never goes stale.
+export const careerStart = new Date(2022, 5, 1)
+
+export function yearsOfExperience(now = new Date()) {
+  let years = now.getFullYear() - careerStart.getFullYear()
+  if (now.getMonth() < careerStart.getMonth()) years--
+  return years
+}
+
 export const skills = {
   'cloud-&-infra': ['AWS (EC2)', 'Netlify'],
   containers: ['Docker'],

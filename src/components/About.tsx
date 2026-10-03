@@ -1,14 +1,13 @@
 import { useInView, useMotionValue, useSpring } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { FiClock, FiMapPin, FiTrendingUp } from 'react-icons/fi'
-import { profile } from '../data/content'
+import { profile, yearsOfExperience } from '../data/content'
 import Reveal from './Reveal'
 import ScrollRevealText from './ScrollRevealText'
 import SectionHeading from './SectionHeading'
 import SpotlightCard from './SpotlightCard'
 
-const CAREER_START = new Date(2022, 5, 1)
-const YEARS_AT_ZENSAR = Math.floor((Date.now() - CAREER_START.getTime()) / (365.25 * 24 * 3600 * 1000))
+const YEARS_AT_ZENSAR = yearsOfExperience()
 
 export default function About() {
   return (
