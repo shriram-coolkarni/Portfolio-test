@@ -2,11 +2,16 @@ import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { FiArrowDown, FiArrowUpRight, FiDownload } from 'react-icons/fi'
 import { profile, yearsOfExperience } from '../data/content'
-import Avatar from './Avatar'
 import Magnetic from './Magnetic'
 import SplitText from './SplitText'
 
 const YEARS = yearsOfExperience()
+
+const STATS = [
+  { value: YEARS, suffix: '+', label: 'years in production ops' },
+  { value: 60, suffix: '%', label: 'faster deploys via CI/CD' },
+  { value: 80, suffix: '%', label: 'less manual deploy effort' },
+]
 
 const ROTATING = ['always up.', 'observable.', 'automated.', 'shipping.']
 
@@ -22,7 +27,7 @@ export default function Hero() {
     <section ref={sectionRef} className="relative flex min-h-[100svh] items-center pb-20 pt-28">
       <motion.div
         style={{ y, opacity, filter: blur }}
-        className="mx-auto grid w-full max-w-7xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-[1.35fr_0.65fr] lg:gap-10"
+        className="mx-auto grid w-full max-w-7xl gap-10 px-5 sm:px-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-end lg:gap-16"
       >
         <div>
           <motion.div
@@ -38,7 +43,7 @@ export default function Hero() {
             to DevOps · SRE · Network roles
           </motion.div>
 
-          <h1 className="text-[clamp(3.4rem,15vw,9.5rem)] font-semibold leading-[0.88] tracking-[-0.055em] text-fg">
+          <h1 className="text-[clamp(3.4rem,15vw,11rem)] font-semibold leading-[0.88] tracking-[-0.055em] text-fg">
             <SplitText text="Shriram" delay={0.1} />
             <br />
             <SplitText
@@ -58,12 +63,14 @@ export default function Hero() {
             <span>I keep infrastructure</span>
             <RotatingWord />
           </motion.p>
+        </div>
 
+        <div className="lg:pb-3">
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg"
+            className="max-w-xl text-base leading-relaxed text-muted sm:text-lg"
           >
             {profile.title}. {YEARS}+ years at Zensar since June 2022, now on the NOC for the Airbus account — and
             shipping CI/CD, Docker and AWS on the side.
@@ -100,10 +107,24 @@ export default function Hero() {
               </a>
             </Magnetic>
           </motion.div>
-        </div>
 
-        <div className="flex justify-center lg:justify-end">
-          <Avatar />
+          <motion.dl
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.95, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-12 grid grid-cols-3 gap-6 border-t border-line pt-6"
+          >
+            {STATS.map((s) => (
+              <div key={s.label}>
+                <dt className="sr-only">{s.label}</dt>
+                <dd className="text-3xl font-semibold tracking-[-0.04em] text-fg sm:text-4xl">
+                  {s.value}
+                  <span className="text-accent">{s.suffix}</span>
+                </dd>
+                <dd className="mt-1 text-xs leading-snug text-muted sm:text-sm">{s.label}</dd>
+              </div>
+            ))}
+          </motion.dl>
         </div>
       </motion.div>
 
