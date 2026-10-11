@@ -100,7 +100,7 @@ export const projects: Project[] = [
     title: 'Unmesh — Fitness Coach Website (Freelance)',
     period: 'Sep 2026 – Oct 2026',
     status: 'deployed',
-    stack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Netlify', 'Netlify Forms'],
+    stack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Netlify', 'Netlify Forms', 'Claude Code'],
     description:
       'Solo freelance build of a personal-brand site for a Mumbai fitness coach. Took a Figma-generated React/Vite export with placeholder content and turned it into a production site: real client content, an editorial redesign with scroll-linked parallax and glassmorphism, and a working enquiry form. Deployed on Netlify.',
     achievements: [
@@ -108,6 +108,7 @@ export const projects: Project[] = [
       'Built draggable before/after transformation sliders and an accessible testimonial carousel that respects reduced-motion',
       'Replaced all stock content with real photos, testimonials and verifiable certifications',
       'Fixed SEO metadata, removed a template noindex tag and resolved 2 high-severity npm audit advisories',
+      'Used Claude Code as an AI pair-programmer to refactor the Figma export, build components and debug the form integration, reviewing every change before shipping',
     ],
     link: 'https://unmesh5454.netlify.app',
   },
