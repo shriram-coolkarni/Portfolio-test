@@ -97,12 +97,19 @@ export const projects: Project[] = [
   },
   {
     id: 'fitness-site',
-    title: 'Fitness Professional Portfolio Website',
-    period: 'Jun 2025 – Jul 2025',
+    title: 'Unmesh — Fitness Coach Website (Freelance)',
+    period: 'Sep 2026 – Oct 2026',
     status: 'deployed',
-    stack: ['Figma', 'Netlify', 'Netlify Forms', 'AI Coding Agent (Claude)'],
+    stack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Netlify', 'Netlify Forms'],
     description:
-      'Converted a static Figma design into a working frontend with an AI coding agent — no backend required. Deployed on Netlify with Netlify Forms wired directly to the client\'s inbox for lead capture.',
+      'Solo freelance build of a personal-brand site for a Mumbai fitness coach. Took a Figma-generated React/Vite export with placeholder content and turned it into a production site: real client content, an editorial redesign with scroll-linked parallax and glassmorphism, and a working enquiry form. Deployed on Netlify.',
+    achievements: [
+      'Wired the React enquiry form to Netlify Forms (hidden static form + AJAX submit) so leads reach the coach by email',
+      'Built draggable before/after transformation sliders and an accessible testimonial carousel that respects reduced-motion',
+      'Replaced all stock content with real photos, testimonials and verifiable certifications',
+      'Fixed SEO metadata, removed a template noindex tag and resolved 2 high-severity npm audit advisories',
+    ],
+    link: 'https://unmesh5454.netlify.app',
   },
   {
     id: 'safety-device',
