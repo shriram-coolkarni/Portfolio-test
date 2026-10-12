@@ -136,21 +136,13 @@ export const experience: ExperienceEntry[] = [
     role: 'System Engineer — NOC Team (Airbus Account)',
     org: 'Zensar Technologies, Pune',
     orgUrl: 'https://www.zensar.com',
-    period: 'Jun 2023 – Present',
+    period: 'Jun 2022 – Present',
     bullets: [
       'Monitor enterprise network infrastructure via Cisco Prime & SolarWinds to maintain high availability.',
       'Troubleshoot IP-based network components, diagnosing and resolving connectivity/config issues in production.',
       'Handle incidents and tickets through ServiceNow/Jira, resolving within SLA timelines.',
       'Perform Root Cause Analysis (RCA) on recurring issues and implement long-term fixes.',
-    ],
-  },
-  {
-    role: 'System Engineer — Onboarding Role',
-    org: 'Zensar Technologies, Pune',
-    orgUrl: 'https://www.zensar.com',
-    period: 'Jun 2022 – Jun 2023',
-    bullets: [
-      'Started at Zensar supporting data-center networking activities, including resolving/escalating server outages in the European zone, before moving into the Airbus NOC account.',
+      'Support data-center networking activities, including resolving/escalating server outages in the European zone.',
     ],
   },
 ]
