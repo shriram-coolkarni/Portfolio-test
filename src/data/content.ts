@@ -88,12 +88,21 @@ export const projects: Project[] = [
   },
   {
     id: 'saas-platform',
-    title: 'Full-Stack SaaS Platform (Team Project)',
+    title: 'Platform Engineer',
     period: 'Jun 2025 – Present',
     status: 'in-progress',
-    stack: ['Git', 'AWS', 'Docker', 'Cloudflare Tunnel', 'Figma-to-code tooling'],
+    stack: ['Jenkins', 'Docker', 'Docker Hub', 'Kubernetes', 'AWS', 'Cloudflare Tunnel', 'Git', 'Figma', 'Claude Code'],
     description:
-      'Two-person team building a SaaS web app (name & internal architecture kept confidential). Used AI coding agents to turn Figma designs into a working frontend wired to an existing backend. Self-hosted via Cloudflare Tunnel on a custom domain while designing the production AWS/Docker deployment plan.',
+      'Platform Engineer on a two-person team building a SaaS web app (name & internal architecture kept confidential). I own everything between a commit and a running release: I chose the deployment approach, built the Jenkins pipelines for the development and production environments, and run the Docker image lifecycle. I am now moving the same app onto Kubernetes. On top of the platform work, I also built the product frontend, turning Figma designs into a working UI with Claude Code and wiring it to the existing backend.',
+    achievements: [
+      'Deployment planning: compared hosting and infra options against the team’s cost, effort and scale needs, then decided how the app would be built, shipped and run in each environment',
+      'Jenkins CI/CD: set up Jenkins and built separate development and production pipelines, so changes are tested on dev before they are promoted to prod',
+      'Image management: integrated Docker Hub as the image registry; Jenkins builds, tags and pushes versioned images there, and each environment pulls the exact tag it runs, so every deployment traces back to a specific build and older versions stay available for rollback',
+      'Secure exposure: self-hosted the app on a custom domain through Cloudflare Tunnel, so no inbound ports are open and the origin IP stays hidden',
+      'Kubernetes (in progress): building a Kubernetes cluster for the same application, moving it from single-host containers to orchestrated deployments',
+      'Frontend: built the UI from Figma designs using Claude Code as a pair-programmer, connected it to the existing backend APIs and reviewed every generated change before shipping it',
+      'Collaboration: split the work with the backend developer, with me owning the platform and frontend and them owning the backend, and coordinated releases through Git',
+    ],
   },
   {
     id: 'fitness-site',
