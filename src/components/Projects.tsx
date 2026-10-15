@@ -99,7 +99,8 @@ function ProjectCard({ project, index, hue }: { project: Project; index: number;
             </span>
           </div>
 
-          <div className="flex min-h-0 flex-1 flex-col overflow-y-auto p-6 sm:p-7">
+          {/* data-lenis-prevent: Lenis swallows wheel events for smooth page scroll, which would otherwise block this inner scroll. */}
+          <div data-lenis-prevent className="flex min-h-0 flex-1 flex-col overflow-y-auto p-6 sm:p-7">
             <h3 className="text-xl font-semibold leading-tight tracking-[-0.03em] text-fg sm:text-2xl">{project.title}</h3>
             <p className="mt-3 text-sm leading-relaxed text-muted">{project.description}</p>
 
